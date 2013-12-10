@@ -1,0 +1,219 @@
+body{
+    margin: 10px 100px ;
+    padding: 0 ;
+    text-align: center ;
+    font: 0.8em "Trebuchet MS", helvetica, sans-serif ;
+    background: url(../css/ui-lightness/images/ui-bg_diagonals-thick_20_666666_40x40.png) ;
+}
+
+div#conteneur{
+    margin: 0 auto ;
+    text-align: left ;
+    border: 2px solid rgb(235, 143, 0) ;
+    background: #fff ;
+}
+
+h1#header{
+    height: 150px ;
+    margin: 0 ;
+    background: url(../css/images/menu_gloss.png) repeat;
+}
+
+h1#header a{
+    position: relative ;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url(../css/images/header.png) no-repeat;
+    text-decoration: none;
+}
+
+#content h1.main{
+    color: #1c94c4;
+    font-weight: bold;
+    font-size: 160%;
+}
+
+h2.main{
+    color: #1c94c4;
+}
+
+ul#menu{
+    height: 27px ;
+    margin: 0 ;
+    padding: 0 ;
+    border-bottom: 2px solid #1c94c4;
+    background: url(../css/images/menu_gloss.png) repeat-x 0 -25px ;
+    list-style-type: none ;
+}
+
+#menu li{
+    float: left ;
+    text-align: center ;
+}
+
+#menu li a{
+    width: 130px ;
+    line-height: 25px ;
+    font-size: 1.2em ;
+    font-weight: bold ;
+    letter-spacing: 2px ;
+    color: #1c94c4;
+    display: block ;
+    text-decoration: none ;
+    border: 1px solid #1c94c4;
+}
+
+#menu li a:hover{
+    background: url(../css/ui-lightness/images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x 0 0 ;   
+}
+
+li#admin{
+    float: right;
+}
+
+.required, .error{
+    color:red;
+}
+
+label{
+    display: block;
+    width: 150px;
+    float: left;
+}
+
+#content{
+    padding: 5px 5px 5px 5px ;
+}
+
+
+#footer{
+    margin: 0 ;
+    padding-right: 10px ;
+    line-height: 30px ;
+    text-align: right ;
+    color: #cccccc ;
+}
+
+span{
+    font-weight: bold;
+    color: #999999;
+}
+
+
+a#add{
+    line-height: 25px ;
+    font-size: 1em ;
+    font-weight: bold ;
+    letter-spacing: 1px ;
+    text-decoration: none ;
+    border: 2px solid #dea ;
+}
+
+#affiche{
+    width: 30%;
+}
+
+textarea{
+    vertical-align:top;
+    width: 70%;
+    height: 80px;
+}
+
+#bloc{
+    overflow: hidden;
+    border: 1px #F6921E solid ;
+    margin: 5px;
+    padding : 10px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.droite{
+    float: right; 
+}
+
+.gauche{
+    float: left;
+}
+
+.droite{
+    width: 150px;
+    height: 200px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #1c94c4;
+}
+
+.droite img{
+    width: 150px;
+    height: 200px;
+}
+
+a.titre{
+    margin-left: 15px ;
+    padding-left: 5px ;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #F6921E; 
+}
+
+#bloc_saison{
+    float: left;
+    width: 100%;
+}
+
+#bloc_progress{
+    float: left;
+    width: 100%;
+}
+
+.ui-accordion-content{
+}
+
+.ui-accordion-content-active{
+}
+
+h3.subtitle {
+    color: #1c94c4;
+}
+
+#bloc_left{
+    float: left;
+    width: 15%;
+}
+
+#bloc_left li,ul{
+    text-decoration: none;
+    list-style-type: none;
+}
+
+table#table_stat {
+    border: 1px solid #cccccc;
+    border-spacing: 0px;
+    text-align: center;
+}
+
+th{
+    color: #999999;
+}
+
+td{
+    border-collapse: collapse;
+}
+
+#table_stat tr:nth-child(even) {
+    background: #cccccc;
+}
+#table_stat tr:nth-child(odd) {
+    background: #ffffff;
+}
+
+.jqplot-target {
+    width: 100%;
+}
+
+.jqplot-stat{
+    width: 50%;
+    text-align: center;
+}
