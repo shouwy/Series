@@ -24,7 +24,9 @@ import com.shouwy.series.bdd.dao.face.SeriesDao;
 import com.shouwy.series.bdd.dao.face.TypeDao;
 import com.shouwy.series.bdd.model.Episode;
 import com.shouwy.series.bdd.model.Saison;
+import com.shouwy.series.bdd.model.Series;
 import com.shouwy.series.web.util.Util;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +56,7 @@ public class AdminEpisodeController {
     @Autowired
     EtatPersonnelDao etatPersoDao;
     
-    @RequestMapping(value="/admin/add/episode/{id}", method = RequestMethod.POST)
+    @RequestMapping(value="/admin/episode/add/{id}", method = RequestMethod.POST)
     public ModelAndView addEpisode(@PathVariable Integer id, HttpServletRequest request){
         
         Episode e = new Episode();
@@ -80,12 +82,20 @@ public class AdminEpisodeController {
     
     @RequestMapping(value="/admin/episode/modif/{id}", method = RequestMethod.GET)
     public ModelAndView modif(@PathVariable Integer id){
-        ModelAndView model = new ModelAndView("admin/saison/modif");
+        ModelAndView model = new ModelAndView("admin/episode/modif");
         
         model.addObject("listType", Util.initModelHeader(typeDao));
+        model.addObject("mapEtatPerso", Util.modelMapEtatPerso(etatPersoDao));
+  
+        Episode e = episodeDao.getById(id);
+        model.addObject("episode", e);
         
-        Episode s = episodeDao.getById(id);
-        model.addObject("saison", s);
+        Saison saison = saisonDao.getById(e.getIdSaison());
+        Series s = seriesDao.getById(saison.getIdSerie());
+        
+        ArrayList<Saison> listSaison = (ArrayList<Saison>) saisonDao.getBySeries(s);
+        model.addObject("saison", listSaison);
+        
         return model;
     }
     

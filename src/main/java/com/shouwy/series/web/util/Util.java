@@ -71,6 +71,10 @@ public class Util {
         return s;
     }
 
+    public static String convertCalToString(Calendar gc){
+        return gc.get(Calendar.DATE)+"/"+gc.get(Calendar.MONTH)+"/"+gc.get(Calendar.YEAR);
+    }
+    
     public static Calendar getStringInDate(String dateString) {
         String[] split = dateString.split("/");
         return new GregorianCalendar(Integer.parseInt(split[2]), Integer.parseInt(split[1])-1, Integer.parseInt(split[0]));

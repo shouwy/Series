@@ -10,7 +10,6 @@
 <%@page import="com.shouwy.series.bdd.model.Etat"%>
 <%@page import="com.shouwy.series.bdd.model.EtatPersonnel"%>
 <%@page import="java.util.HashMap"%>
-<%@page import="java.util.HashMap"%>
 <%@page import="com.shouwy.series.bdd.model.Series"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -80,7 +79,8 @@ $(function() {
                     <table>
                         <tr>
                             <td align="left"><input class="ui-button ui-state-default ui-corner-all ui-widget" type="submit" value="Modifier"/></td>
-                            <td></td></tr>
+                            <td></td>
+                        </tr>
                         <tr>
                             <td style="vertical-align:top;text-align: left;"><label for="nom">Nom : </label></td>
                             <td><input type="text" value="<%=s.getNom()%>" /></td>
@@ -138,7 +138,7 @@ $(function() {
                 <% if (listSaison.size() > 0) { %>
                 <button id="addepisode">Ajouter Un Episode</button>
                 <div id="episode-form" title="Création d'un Episode">
-                    <form method="POST" action="<%=request.getContextPath() %>/admin/add/episode/<%=s.getId() %>">
+                    <form method="POST" action="<%=request.getContextPath() %>/admin/episode/add/<%=s.getId() %>">
                         <table>
                             <tr>
                                 <td style="vertical-align:top;text-align: left;"><label for="saison">Saison : </label></td>
@@ -200,7 +200,7 @@ $(function() {
                                     <td><%=Util.getDateInString(e.getDateSortie()) %></td>
                                     <td><%=listEtatPerso.get(e.getIdEtatPersonnel()).getNom() %></td>
                                     <td><a href="<%=request.getContextPath() %>/admin/episode/modif/<%=e.getId()%>" class="ui-icon ui-icon-tag"></a></td>
-                                    <td><a onclick="if (confirm('Etes-vous sur de vouloir supprimer cette Episode?')){return true;}else{return false;}" href="<%=request.getContextPath() %>/admin/delete/<%=e.getId()%>" class="ui-icon ui-icon-trash"></a></td>
+                                    <td><a onclick="if (confirm('Etes-vous sur de vouloir supprimer cette Episode?')){return true;}else{return false;}" href="<%=request.getContextPath() %>/admin/episode/delete/<%=e.getId()%>" class="ui-icon ui-icon-trash"></a></td>
                                 </tr>
                                 <% } %>
                             </table>
