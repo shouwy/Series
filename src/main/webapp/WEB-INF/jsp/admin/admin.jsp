@@ -24,6 +24,7 @@
                 <%@include file="left.jsp" %>
                 <div id="bloc">
                 <table id="table_stat">
+                    <thead>
                     <tr>
                         <th>Type</th>
                         <th>Nombre Serie</th>
@@ -33,6 +34,8 @@
                         <th>Episode Par Saison</th>
                         <th>Episode Par Serie</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <% HashMap<Type, HashMap<String, Integer>> mapStat = (HashMap<Type, HashMap<String, Integer>>) request.getAttribute("mapStat");%>
                     <% for (Type t : mapStat.keySet()){ %>
                     <tr>
@@ -45,15 +48,16 @@
                         <td><%=Util.safeDiv(mapStat.get(t).get("episodes"), mapStat.get(t).get("series")) %></td>
                     </tr>
                     <%}%>
+                    </tbody>
                 </table>
                 
                 <table style="width:100%; border: none">
                     <tr>
-                        <td class="jqplot-stat"><div id="pie1"></div></td>
-                        <td class="jqplot-stat"><div id="pie2"></div></td>
+                        <td id="jqplot-stat"><div id="pie1"></div></td>
+                        <td id="jqplot-stat"><div id="pie2"></div></td>
                     </tr>
                     <tr>
-                        <td class="jqplot-stat"><div id="pie3"></div></td>
+                        <td id="jqplot-stat"><div id="pie3"></div></td>
                     </tr>
                 </table>
                 </div>
@@ -61,8 +65,14 @@
             <%@include file="../footer.jsp"%>
         </div>
 <script type="text/javascript">
-$(document).ready(
-function(){
+$(document).ready(function(){
+    jQuery("#table_stat").dataTable({
+        bFilter : false,
+        bPaginate : false,
+        bInfo : false,
+        bJQueryUI : true,
+    });
+
     <% String s1 = "";%>
     <% String s2 = "";%>
     <% String s3 = "";%>

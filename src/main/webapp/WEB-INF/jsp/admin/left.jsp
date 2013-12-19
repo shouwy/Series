@@ -5,24 +5,21 @@
 --%>
 <script type="text/javascript">
     $(function(){
-        jQuery("#accordion-left").accordion({
-            header: 'h3'
-        });
-        $("#accordion-left h3 a").click(function() {
-            window.location = $(this).attr('href');
-            return false;
-        });
+        jQuery("#accordion-left").menu({});
     });
 </script>
+<style>
+.ui-menu .ui-menu-item{
+	position : relative;
+	z-index : 1000;
+}
+</style>
 <div id="bloc_left">
-    <div id="bloc">
-        <div id="accordion-left">
-            <h3>Gestion</h3>
-            <div>
-                <a href="<%=request.getContextPath() %>/admin/list">serie</a>
-                
-            </div>
-            <h3><a href="<%=request.getContextPath() %>/admin/admin">Statistique</a></h3>
-        </div>
-    </div>
+        <ul id="accordion-left">
+            <li><a href="">Gestion</a>
+            <ul>
+                <li><a href="<%=request.getContextPath() %>/admin/list">serie</a></li>
+            </ul>    
+            <li><a href="<%=request.getContextPath() %>/admin/admin">Statistique</a></li>
+        </ul>
 </div>

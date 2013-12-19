@@ -11,11 +11,19 @@
         <title>Liste des </title>
     </head>
     <body>
+<script type="text/javascript" >
+$(function() {
+    jQuery("#list").dataTable({
+        bJQueryUI : true,
+        sPaginationType : "full_numbers",
+    });
+});
+</script>
         <div id="conteneur">
         <%@include file="../header.jsp"%>
         <div id="content">
         <h1>Tableau de Series</h1>
-        <table>
+        <table id="list">
             <thead>
                 <tr>
                     <td>Nom</td>

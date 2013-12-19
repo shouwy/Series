@@ -36,7 +36,11 @@ $(function() {
                     <% Episode e = (Episode) request.getAttribute("episode");%>
                     <% HashMap<Integer, EtatPersonnel> listEtatPerso = (HashMap<Integer, EtatPersonnel>) request.getAttribute("mapEtatPerso"); %>
                     <% ArrayList<Saison> listSaison = (ArrayList<Saison>) request.getAttribute("saison"); %> 
-
+                    <% String msg = (String) request.getAttribute("msg"); %>
+                    
+                    <% if (msg != null){ %>
+                    <p class="up"><%=msg%></p>
+                    <% } %>
                     <form method="POST" action="<%=request.getContextPath() %>/admin/episode/valide/<%=e.getId()%>">
                         <table>
                             <tr>

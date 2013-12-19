@@ -103,8 +103,16 @@ public class AdminEpisodeController {
     public ModelAndView valideModif(@PathVariable Integer id, HttpServletRequest request){
         
         Episode e = episodeDao.getById(id);
-       
+        e.setIdSaison(Integer.parseInt(request.getParameter("saison")));
+        e.setTitre(request.getParameter("titre"));
+        e.setIdEtatPersonnel(Integer.parseInt(request.getParameter("etatperso")));
+        String dateString = request.getParameter("date");
+        Calendar date = Util.getStringInDate(dateString);
+        e.setDateSortie(date);
+        
         episodeDao.update(e);
+        
+        request.setAttribute("msg", "Mise à jour de l'épisode réussi.");
         
         return this.modif(id);
     }

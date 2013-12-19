@@ -30,6 +30,11 @@ $(function() {
       modal: true
     });
     
+    jQuery("#list").dataTable({
+        "bJQueryUI": true,
+        "sPaginationType": "full_numbers",
+    });
+    
      jQuery( "#create" ).button().click(function() {
         jQuery( "#dialog-form" ).dialog( "open" );
       });
@@ -64,20 +69,20 @@ $(function() {
                     </form>
                 </div>
                 <button id="create">Créer</button>
-                <table>
+                <table id="list">
                     <thead>
                         <tr>
                             <th>Titre</th>
                             <th>Type</th>
                             <th>Etat</th>
                             <th>Etat Perso</th>
-                            <th>Modifier</th>
+                           <th>Modifier</th>
                             <th>Supprimer</th>
                         </tr>
                     </thead>
                     <tbody>
                     <% for (Series s : listSeries){%>
-                        <tr>
+                        <tr> 
                             <%
                             String typeS = "";
                             String etatS = "";
@@ -102,9 +107,8 @@ $(function() {
                             <td><%=typeS %></td>
                             <td><%=etatS %></td>
                             <td><%=etatPersoS %></td>
-                            <td></td>
-                            <td><a href="<%=request.getContextPath() %>/admin/modif/<%=s.getId()%>" class="ui-icon ui-icon-tag"></a></td>
-                            <td><a onclick="if (confirm('Etes-vous sur de vouloir supprimer cette serie?')){return true;}else{return false;}" href="<%=request.getContextPath() %>/admin/delete/<%=s.getId()%>" class="ui-icon ui-icon-trash"></a></td>
+                            <td id="centerimg"><a href="<%=request.getContextPath() %>/admin/modif/<%=s.getId()%>" class="ui-icon ui-icon-tag"></a></td>
+                            <td id="centerimg"><a onclick="if (confirm('Etes-vous sur de vouloir supprimer cette serie?')){return true;}else{return false;}" href="<%=request.getContextPath() %>/admin/delete/<%=s.getId()%>" class="ui-icon ui-icon-trash"></a></td>
                         </tr>
                     <% } %>
                     </tbody>
