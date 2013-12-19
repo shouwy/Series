@@ -31,8 +31,8 @@ $(function() {
     });
     
     jQuery("#list").dataTable({
-        "bJQueryUI": true,
-        "sPaginationType": "full_numbers",
+        bJQueryUI : true,
+        sPaginationType : "full_numbers",
     });
     
      jQuery( "#create" ).button().click(function() {
