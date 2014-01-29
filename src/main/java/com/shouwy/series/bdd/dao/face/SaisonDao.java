@@ -16,6 +16,7 @@
  */
 package com.shouwy.series.bdd.dao.face;
 
+import com.shouwy.series.bdd.dao.generic.GenericDao;
 import com.shouwy.series.bdd.model.Saison;
 import com.shouwy.series.bdd.model.Series;
 import java.util.ArrayList;
@@ -25,14 +26,7 @@ import java.util.List;
  *
  * @author Inspiron
  */
-public interface SaisonDao {
-    void save(Saison entity);
-    Saison merge(Saison entity);
-    void update(Saison entity);
-    void delete(Saison entity);
-    Saison getById(Integer id);
-    List<Saison> getAll();
-    int count();
+public interface SaisonDao extends GenericDao<Saison>{
 
     public List<Saison> getByListSeries(List<Series> listSeries);
     public List<Saison> getBySeries(Series s);

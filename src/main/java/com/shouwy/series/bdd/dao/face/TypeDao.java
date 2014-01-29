@@ -16,21 +16,14 @@
  */
 package com.shouwy.series.bdd.dao.face;
 
+import com.shouwy.series.bdd.dao.generic.GenericDao;
 import com.shouwy.series.bdd.model.Type;
-import java.util.List;
 import java.util.Map;
 
 /**
  *
  * @author Inspiron
  */
-public interface TypeDao {
-    void save(Type entity);
-    Type merge(Type entity);
-    void delete(Type entity);
-    void update(Type entity);
-    Type getById(Integer id);
-    List<Type> getAll();
-    int count();
+public interface TypeDao extends GenericDao<Type>{
     public Map<Integer, Type> getMapAll();
 }

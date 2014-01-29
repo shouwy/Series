@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.shouwy.series.bdd.dao;
+package com.shouwy.series.bdd.dao.service;
 
 import com.shouwy.series.bdd.dao.face.SaisonDao;
 import com.shouwy.series.bdd.model.Saison;

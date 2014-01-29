@@ -5,6 +5,7 @@
  */
 package com.shouwy.series.bdd.dao.face;
 
+import com.shouwy.series.bdd.dao.generic.GenericDao;
 import com.shouwy.series.bdd.model.Series;
 import java.util.List;
 
@@ -13,13 +14,6 @@ import java.util.List;
  * @author Inspiron
  */
 
-public interface SeriesDao{
-    void save(Series entity);
-    Series merge(Series entity);
-    void update(Series entity);
-    void delete(Series entity);
-    Series getById(Integer id);
-    List<Series> getAll();
-    int count();
+public interface SeriesDao extends GenericDao<Series>{
     List<Series> getByType(Integer type);
 }

@@ -14,10 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.shouwy.series.bdd.dao;
+package com.shouwy.series.bdd.dao.service;
 
-import com.shouwy.series.bdd.dao.face.EtatPersonnelDao;
-import com.shouwy.series.bdd.model.EtatPersonnel;
+import com.shouwy.series.bdd.dao.face.TypeDao;
+import com.shouwy.series.bdd.model.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,51 +32,51 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class EtatPersonnelDaoImpl implements EtatPersonnelDao{
+public class TypeDaoImpl implements TypeDao{
     @Autowired
     private SessionFactory sessionFactory;
      
     @Override
-    public void save(EtatPersonnel entity) {
+    public Map<Integer, Type> getMapAll() {
+        Map<Integer, Type> map = new HashMap<Integer, Type>();
+        for (Type t : getAll()){
+            map.put(t.getId(), t);
+        }
+        return map;
+    }
+    
+    @Override
+    public void save(Type entity) {
         sessionFactory.getCurrentSession().saveOrUpdate(entity);
     }
  
     @Override
-    public EtatPersonnel merge(EtatPersonnel entity) {
-        return (EtatPersonnel) sessionFactory.getCurrentSession().merge(entity);
-    }
- 
-    @Override
-    public void update(EtatPersonnel entity){
+    public void update(Type entity) {
         sessionFactory.getCurrentSession().update(entity);
     }
     
     @Override
-    public void delete(EtatPersonnel entity) {
+    public Type merge(Type entity) {
+        return (Type) sessionFactory.getCurrentSession().merge(entity);
+    }
+ 
+    @Override
+    public void delete(Type entity) {
         sessionFactory.getCurrentSession().delete(entity);
     }
  
     @Override
-    public EtatPersonnel getById(Integer id) {
-        return (EtatPersonnel) sessionFactory.getCurrentSession().get(EtatPersonnel.class, id);
+    public Type getById(Integer id) {
+        return (Type) sessionFactory.getCurrentSession().get(Type.class, id);
     }
  
     @Override
-    public List<EtatPersonnel> getAll() {
-        return sessionFactory.getCurrentSession().createQuery("from EtatPersonnel").list();
+    public List<Type> getAll() {
+        return sessionFactory.getCurrentSession().createQuery("from Type").list();
     }
  
     @Override
     public int count() {
         return getAll().size();
-    }
-
-    @Override
-    public Map<Integer, EtatPersonnel> getMapAll() {
-        Map<Integer, EtatPersonnel> map = new HashMap<Integer, EtatPersonnel>();
-        for (EtatPersonnel e : getAll()){
-            map.put(e.getId(), e);
-        }
-        return map;
     }
 }

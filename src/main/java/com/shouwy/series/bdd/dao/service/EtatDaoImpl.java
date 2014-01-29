@@ -14,11 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.shouwy.series.bdd.dao;
+package com.shouwy.series.bdd.dao.service;
 
-import com.shouwy.series.bdd.dao.face.SeriesDao;
-import com.shouwy.series.bdd.model.Series;
+import com.shouwy.series.bdd.dao.face.EtatDao;
+import com.shouwy.series.bdd.model.Etat;
+import java.util.HashMap;
+
 import java.util.List;
+import java.util.Map;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,47 +33,51 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class SeriesDaoImpl implements SeriesDao{
+public class EtatDaoImpl implements EtatDao{
     @Autowired
     private SessionFactory sessionFactory;
      
     @Override
-    public void save(Series entity) {
+    public void save(Etat entity) {
         sessionFactory.getCurrentSession().saveOrUpdate(entity);
     }
  
     @Override
-    public void update(Series entity) {
-        sessionFactory.getCurrentSession().update(entity);
+    public Etat merge(Etat entity) {
+        return (Etat) sessionFactory.getCurrentSession().merge(entity);
     }
     
     @Override
-    public Series merge(Series entity) {
-        return (Series) sessionFactory.getCurrentSession().merge(entity);
+    public void update(Etat entity){
+        sessionFactory.getCurrentSession().update(entity);
     }
  
     @Override
-    public void delete(Series entity) {
+    public void delete(Etat entity) {
         sessionFactory.getCurrentSession().delete(entity);
     }
  
     @Override
-    public Series getById(Integer id) {
-        return (Series) sessionFactory.getCurrentSession().get(Series.class, id);
+    public Etat getById(Integer id) {
+        return (Etat) sessionFactory.getCurrentSession().get(Etat.class, id);
     }
  
     @Override
-    public List<Series> getAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Series").list();
+    public List<Etat> getAll() {
+        return sessionFactory.getCurrentSession().createQuery("from Etat").list();
     }
  
     @Override
     public int count() {
         return getAll().size();
     }
-    
+
     @Override
-    public List<Series> getByType(Integer type){
-        return sessionFactory.getCurrentSession().createQuery("from Series Where idType="+type).list();
+    public Map<Integer, Etat> getMapAll() {
+        Map<Integer, Etat> map = new HashMap<Integer, Etat>();
+        for (Etat e : getAll()){
+            map.put(e.getId(), e);
+        }
+        return map;
     }
 }

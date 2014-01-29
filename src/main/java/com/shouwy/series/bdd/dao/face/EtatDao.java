@@ -16,21 +16,15 @@
  */
 package com.shouwy.series.bdd.dao.face;
 
+import com.shouwy.series.bdd.dao.generic.GenericDao;
 import com.shouwy.series.bdd.model.Etat;
-import java.util.List;
 import java.util.Map;
 
 /**
  *
  * @author Inspiron
  */
-public interface EtatDao {
-    void save(Etat entity);
-    Etat merge(Etat entity);
-    void update(Etat entity);
-    void delete(Etat entity);
-    Etat getById(Integer id);
-    List<Etat> getAll();
+public interface EtatDao extends GenericDao<Etat>{
+
     Map<Integer, Etat> getMapAll();
-    int count();
 }

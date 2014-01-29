@@ -37,10 +37,10 @@
 	
     <!-- DAO -->
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
-    <bean class="com.shouwy.series.bdd.dao.SeriesDaoImpl"/>
-    <bean class="com.shouwy.series.bdd.dao.EpisodeDaoImpl"/>
-    <bean class="com.shouwy.series.bdd.dao.EtatDaoImpl"/>
-    <bean class="com.shouwy.series.bdd.dao.EtatPersonnelDaoImpl"/>
-    <bean class="com.shouwy.series.bdd.dao.SaisonDaoImpl"/>
-    <bean class="com.shouwy.series.bdd.dao.TypeDaoImpl"/>
+    <bean class="com.shouwy.series.bdd.dao.service.SeriesDaoImpl"/>
+    <bean class="com.shouwy.series.bdd.dao.service.EpisodeDaoImpl"/>
+    <bean class="com.shouwy.series.bdd.dao.service.EtatDaoImpl"/>
+    <bean class="com.shouwy.series.bdd.dao.service.EtatPersonnelDaoImpl"/>
+    <bean class="com.shouwy.series.bdd.dao.service.SaisonDaoImpl"/>
+    <bean class="com.shouwy.series.bdd.dao.service.TypeDaoImpl"/>
 </beans>
