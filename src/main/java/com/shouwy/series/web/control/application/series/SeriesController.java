@@ -47,12 +47,7 @@ public class SeriesController {
         
         Type t = typeDao.getById(typeId);
         model.addObject("type", t);
-        
-        HashMap<String, Object> map = (HashMap<String, Object>) model.getModel();
-        for (String s : map.keySet()){
-            System.out.println(s);
-        }
-            
+                    
         return model;
     }
     @RequestMapping(value = "/affiche/{id}", method = RequestMethod.GET)

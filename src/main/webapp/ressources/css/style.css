@@ -82,6 +82,15 @@ label{
     float: left;
 }
 
+.overTab:hover {
+    background-color: #F6921E;
+    cursor: pointer;
+}
+
+.overTab:active, td.overTab:focus{
+    background-color: #1c94c4;
+}
+
 .dataTables_filter label{
     cursor: default;
     width: auto;

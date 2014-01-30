@@ -19,6 +19,7 @@
         <%@include file="../header.jsp"%>
         <div id="content">
             <div id="bloc">
+                <div class="gauche">
                 <% Series s = (Series) request.getAttribute("serie");%>
                 <% HashMap<Integer, Etat> listEtat = (HashMap<Integer, Etat>) request.getAttribute("mapEtat"); %>
                 <% HashMap<Integer, EtatPersonnel> listEtatPerso = (HashMap<Integer, EtatPersonnel>) request.getAttribute("mapEtatPerso"); %>
@@ -28,6 +29,8 @@
                 <p><span style="text-decoration: underline">Etat</span> : <%=listEtat.get(s.getIdEtat()).getNom()%></p>
                 <p><span style="text-decoration: underline">Etat Personnel</span> : <%=listEtatPerso.get(s.getIdEtatPersonnel()).getNom() %></p>   
                 <p><span style="text-decoration: underline">Synopsis</span> : <%=s.getSynopsis() %></p>
+                </div>
+                <img class="droite" alt="<%=s.getNom()%>" src="<%=request.getContextPath()%>/ressources/images/<%=s.getIdType()%>/<%=s.getImage()%>.png"  />
             </div>
         </div>
         <%@include file="../footer.jsp"%>

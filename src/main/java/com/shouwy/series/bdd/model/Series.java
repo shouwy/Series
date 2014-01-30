@@ -34,6 +34,15 @@ public class Series  {
     private int idType;
     private int idEtat;
     private int idEtatPersonnel;
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public Integer getId() {
         return id;
