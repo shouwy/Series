@@ -27,6 +27,7 @@ import com.shouwy.series.bdd.model.Saison;
 import com.shouwy.series.bdd.model.Series;
 import com.shouwy.series.web.util.Util;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,7 +56,28 @@ public class AdminSaisonController {
     @Autowired
     EtatPersonnelDao etatPersoDao;   
     
-    @RequestMapping(value="/admin/add/saison/{id}", method = RequestMethod.POST)
+    @RequestMapping(value="/admin/saisons/list")
+    public ModelAndView list(){
+        ModelAndView model = new ModelAndView("/admin/saison/list");
+    
+        model.addObject("listType", Util.initModelHeader(typeDao));
+        ArrayList<Series> listSeries = (ArrayList<Series>) seriesDao.getAll();
+        ArrayList<Saison> listSaison = (ArrayList<Saison>) saisonDao.getAll();
+
+        HashMap<Saison, Series> mapSaison = new HashMap<Saison, Series>();
+        for (Saison sa : listSaison){
+            for (Series se : listSeries){
+                if (se.getId().equals(sa.getIdSerie())){
+                    mapSaison.put(sa, se);
+                }
+            }
+        }
+        model.addObject("listSaison", mapSaison);
+        
+        return model;
+    }
+    
+    @RequestMapping(value="/admin/saisons/add/{id}", method = RequestMethod.POST)
     public ModelAndView addSaison(@PathVariable Integer id, HttpServletRequest request){
         
         Saison s = new Saison();
@@ -75,22 +97,20 @@ public class AdminSaisonController {
         return serieController.modif(id);
     }
     
-    @RequestMapping(value="admin/saison/modif/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="admin/saisons/modif/{id}", method = RequestMethod.GET)
     public ModelAndView modif(@PathVariable Integer id){
         ModelAndView model = new ModelAndView("admin/saison/modif");
         
-        model.addObject("listType", Util.initModelHeader(typeDao));
-        
         Saison saison = saisonDao.getById(id);
-        model.addObject("saison", saison);
         
-        Series serie = seriesDao.getById(saison.getIdSerie());
-        model.addObject("serie", serie);
+        model.addObject("listType", Util.initModelHeader(typeDao));     
+        model.addObject("saison", saison);        
+        model.addObject("serie", seriesDao.getById(saison.getIdSerie()));
         
         return model;
     }
     
-    @RequestMapping(value="admin/saison/valide/{id}", method = RequestMethod.POST)
+    @RequestMapping(value="admin/saisons/valide/{id}", method = RequestMethod.POST)
     public ModelAndView valideModif(@PathVariable Integer id, HttpServletRequest request){
         
         Saison s = saisonDao.getById(id);
@@ -108,7 +128,7 @@ public class AdminSaisonController {
         return serieController.modif(s.getIdSerie());
     }
     
-    @RequestMapping(value="admin/saison/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="admin/saisons/delete/{id}", method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable Integer id){
         
         Saison s = saisonDao.getById(id);

@@ -90,24 +90,4 @@ public class AdminController {
         
         return model;
     }
-    
-    @RequestMapping(value="/admin/list", method = RequestMethod.GET)
-    public ModelAndView list(){
-        
-        ModelAndView model = new ModelAndView("admin/serie/list");
-        model.addObject("listType", Util.initModelHeader(typeDao));
-        
-        ArrayList<Series> listSeries = (ArrayList<Series>) seriesDao.getAll();
-        model.addObject("listSeries", listSeries);
-        
-        ArrayList<Type> type = (ArrayList<Type>) typeDao.getAll();
-        model.addObject("type", type);
-        
-        ArrayList<Etat> etat = (ArrayList<Etat>) etatDao.getAll();
-        model.addObject("etat", etat);
-                
-        ArrayList<EtatPersonnel> etatPerso = (ArrayList<EtatPersonnel>) etatPersoDao.getAll();
-        model.addObject("etatPerso", etatPerso);
-        return model;
-    }
 }

@@ -16,9 +16,12 @@
 </style>
 <div id="bloc_left">
         <ul id="accordion-left">
-            <li><a href="">Gestion</a>
+            <li><a href="#">Gestion</a>
             <ul>
-                <li><a href="<%=request.getContextPath() %>/admin/list">serie</a></li>
+                <li><a href="<%=request.getContextPath() %>/admin/series/list">Serie</a></li>
+                <li><a href="<%=request.getContextPath() %>/admin/saisons/list">Saison</a></li>
+                <li><a href="<%=request.getContextPath() %>/admin/episodes/list">Episode</a></li>
+                <li><a href="<%=request.getContextPath() %>/admin/params/list">Type, Etat</a></li>
             </ul>    
             <li><a href="<%=request.getContextPath() %>/admin/admin">Statistique</a></li>
         </ul>

@@ -21,7 +21,7 @@
         <title>Administration</title>
     </head>
     <body>
-        <script type="text/javascript" >
+<script type="text/javascript" >
 $(function() { 
     jQuery( "#dialog-form" ).dialog({
       autoOpen: false,
@@ -39,7 +39,7 @@ $(function() {
         jQuery( "#dialog-form" ).dialog( "open" );
       });
   });
-        </script>
+</script>
         <div id="conteneur">
             <%@include file="../../header.jsp"%>
             <div id="content">
@@ -51,7 +51,7 @@ $(function() {
                 <% ArrayList<EtatPersonnel> etatPerso = (ArrayList<EtatPersonnel>) request.getAttribute("etatPerso"); %>
 
                 <div id="dialog-form" title="Création d'une Serie">
-                    <form method="POST" id="form-series" action="<%=request.getContextPath() %>/admin/create">
+                    <form method="POST" id="form-series" action="<%=request.getContextPath() %>/admin/series/create">
                         <table>
                             <tr><td style="vertical-align:top;text-align: left;"><label for="nom">Nom : </label></td><td style="vertical-align:top;text-align: left;"><input type="text" id="nom" name="nom"/></td></tr>
                             <tr><td style="vertical-align: top;text-align: left;"><label for="synopsis">Synopsis : </label></td><td style="vertical-align:top;text-align: left;"><textarea id="synopsis" rows="5" cols="100" name="synopsis">Résumé de la Série</textarea></td></tr>
@@ -59,7 +59,7 @@ $(function() {
                                 <td style="vertical-align:top;text-align: left;">
                                     <select id="type" name="type">
                                 <% for(Type t : type){ %>
-                                <option value="<%=t.getId() %>"><%=t.getNom() %></option>
+                                        <option value="<%=t.getId() %>"><%=t.getNom() %></option>
                                 <% } %>
                                     </select>
                                 </td>
@@ -76,7 +76,7 @@ $(function() {
                             <th>Type</th>
                             <th>Etat</th>
                             <th>Etat Perso</th>
-                           <th>Modifier</th>
+                            <th>Modifier</th>
                             <th>Supprimer</th>
                         </tr>
                     </thead>
@@ -107,8 +107,8 @@ $(function() {
                             <td><%=typeS %></td>
                             <td><%=etatS %></td>
                             <td><%=etatPersoS %></td>
-                            <td id="centerimg"><a href="<%=request.getContextPath() %>/admin/modif/<%=s.getId()%>" class="ui-icon ui-icon-tag"></a></td>
-                            <td id="centerimg"><a onclick="if (confirm('Etes-vous sur de vouloir supprimer cette serie?')){return true;}else{return false;}" href="<%=request.getContextPath() %>/admin/delete/<%=s.getId()%>" class="ui-icon ui-icon-trash"></a></td>
+                            <td id="centerimg"><a href="<%=request.getContextPath() %>/admin/series/modif/<%=s.getId()%>" class="ui-icon ui-icon-tag"></a></td>
+                            <td id="centerimg"><a onclick="if (confirm('Etes-vous sur de vouloir supprimer cette serie?')){return true;}else{return false;}" href="<%=request.getContextPath() %>/admin/series/delete/<%=s.getId()%>" class="ui-icon ui-icon-trash"></a></td>
                         </tr>
                     <% } %>
                     </tbody>

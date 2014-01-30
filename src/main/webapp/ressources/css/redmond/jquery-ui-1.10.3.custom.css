@@ -196,7 +196,7 @@
 .ui-button {
 	display: inline-block;
 	position: relative;
-	padding: 0;
+	padding: .5em .5em;
 	line-height: normal;
 	margin-right: .1em;
 	cursor: pointer;
@@ -232,20 +232,20 @@ button.ui-button-icons-only {
 	line-height: normal;
 }
 .ui-button-text-only .ui-button-text {
-	padding: .4em 1em;
+	/*padding: .5em .5em;*/
 }
 .ui-button-icon-only .ui-button-text,
 .ui-button-icons-only .ui-button-text {
-	padding: .4em;
+	padding: .5em;
 	text-indent: -9999999px;
 }
 .ui-button-text-icon-primary .ui-button-text,
 .ui-button-text-icons .ui-button-text {
-	padding: .4em 1em .4em 2.1em;
+	padding: .5em .5em .5em .5em;
 }
 .ui-button-text-icon-secondary .ui-button-text,
 .ui-button-text-icons .ui-button-text {
-	padding: .4em 2.1em .4em 1em;
+	padding: .5em .5em .5em .5em;
 }
 .ui-button-text-icons .ui-button-text {
 	padding-left: 2.1em;
@@ -253,7 +253,7 @@ button.ui-button-icons-only {
 }
 /* no icon support for input elements, provide padding by default */
 input.ui-button {
-	padding: .4em 1em;
+	padding: .5em .5em;
 }
 
 /* button icon element(s) */

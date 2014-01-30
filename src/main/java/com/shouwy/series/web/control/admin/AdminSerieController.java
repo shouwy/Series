@@ -23,8 +23,11 @@ import com.shouwy.series.bdd.dao.face.SaisonDao;
 import com.shouwy.series.bdd.dao.face.SeriesDao;
 import com.shouwy.series.bdd.dao.face.TypeDao;
 import com.shouwy.series.bdd.model.Episode;
+import com.shouwy.series.bdd.model.Etat;
+import com.shouwy.series.bdd.model.EtatPersonnel;
 import com.shouwy.series.bdd.model.Saison;
 import com.shouwy.series.bdd.model.Series;
+import com.shouwy.series.bdd.model.Type;
 import com.shouwy.series.web.util.Util;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,7 +59,18 @@ public class AdminSerieController {
     @Autowired
     EtatPersonnelDao etatPersoDao;
     
-    @RequestMapping(value="/admin/create", method = RequestMethod.POST)
+    @RequestMapping(value="/admin/series/list", method = RequestMethod.GET)
+    public ModelAndView list(){        
+        ModelAndView model = new ModelAndView("admin/serie/list");
+        model.addObject("listType", Util.initModelHeader(typeDao));        
+        model.addObject("listSeries", seriesDao.getAll());        
+        model.addObject("type", typeDao.getAll());        
+        model.addObject("etat", etatDao.getAll());                
+        model.addObject("etatPerso", etatPersoDao.getAll());
+        return model;
+    }
+    
+    @RequestMapping(value="/admin/series/create", method = RequestMethod.POST)
     public ModelAndView create(HttpServletRequest request){
         Series s = new Series();
         
@@ -67,17 +81,11 @@ public class AdminSerieController {
         s.setIdEtatPersonnel(1);
         
         seriesDao.save(s);
-        AdminController admin = new AdminController();
-        admin.typeDao = typeDao;
-        admin.etatDao = etatDao;
-        admin.etatPersoDao = etatPersoDao;
-        admin.episodeDao = episodeDao;
-        admin.saisonDao = saisonDao;    
-        admin.seriesDao = seriesDao;
-        return admin.list();
+
+        return this.list();
     }
     
-    @RequestMapping(value="/admin/modif/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/admin/series/modif/{id}", method = RequestMethod.GET)
     public ModelAndView modif(@PathVariable Integer id){
         
         ModelAndView model = new ModelAndView("admin/serie/modif");
@@ -93,7 +101,7 @@ public class AdminSerieController {
         model.addObject("saison", listSaison);
         
         HashMap<Integer, ArrayList<Episode>> mapEpisodeByIdSaison = new HashMap<Integer, ArrayList<Episode>>();
-        if (listSaison.size() != 0){
+        if (!listSaison.isEmpty()){
             ArrayList<Episode> listEpisode = new  ArrayList<Episode>();
             listEpisode = (ArrayList<Episode>) episodeDao.getByListSaison(listSaison);
             for (Saison saison : listSaison){
@@ -111,7 +119,7 @@ public class AdminSerieController {
         return model;
     }
     
-    @RequestMapping(value="/admin/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/admin/series/delete/{id}", method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable Integer id){
         
         Series s = seriesDao.getById(id);
@@ -123,13 +131,49 @@ public class AdminSerieController {
         saisonDao.deleteList(listSaison);
         seriesDao.delete(s);
         
-        AdminController admin = new AdminController();
-        admin.typeDao = typeDao;
-        admin.etatDao = etatDao;
-        admin.etatPersoDao = etatPersoDao;
-        admin.episodeDao = episodeDao;
-        admin.saisonDao = saisonDao;    
-        admin.seriesDao = seriesDao;
-        return admin.list();
+        return this.list();
+    }
+    
+    @RequestMapping(value="/admin/series/modif/validate", method = RequestMethod.POST)
+    public ModelAndView validate(HttpServletRequest request){
+        ModelAndView model = new ModelAndView("admin/serie/modif");
+        
+        Series s = seriesDao.getById(Integer.parseInt(request.getParameter("id")));
+//        String image = request.getParameter("image");
+        
+        s.setNom(request.getParameter("nom"));
+        s.setIdEtat(Integer.parseInt(request.getParameter("etat")));
+        s.setIdEtatPersonnel(Integer.parseInt(request.getParameter("etatperso")));
+        s.setIdType(Integer.parseInt(request.getParameter("type")));
+        s.setSynopsis(request.getParameter("synopsis"));
+        seriesDao.update(s);
+        
+        model.addObject("listType", Util.initModelHeader(typeDao));
+        model.addObject("mapEtat", Util.modelMapEtat(etatDao));
+        model.addObject("mapEtatPerso", Util.modelMapEtatPerso(etatPersoDao));
+        model.addObject("mapType", Util.modelMapType(typeDao));
+        
+        model.addObject("serie", s);
+        
+        ArrayList<Saison> listSaison = (ArrayList<Saison>) saisonDao.getBySeries(s);
+        model.addObject("saison", listSaison);
+        
+        HashMap<Integer, ArrayList<Episode>> mapEpisodeByIdSaison = new HashMap<Integer, ArrayList<Episode>>();
+        if (!listSaison.isEmpty()){
+            ArrayList<Episode> listEpisode = new  ArrayList<Episode>();
+            listEpisode = (ArrayList<Episode>) episodeDao.getByListSaison(listSaison);
+            for (Saison saison : listSaison){
+                ArrayList<Episode> episode = new ArrayList<Episode>();
+                for (Episode e : listEpisode){
+                    if (saison.getId().equals(e.getIdSaison())){
+                        episode.add(e);
+                    }
+                }
+                mapEpisodeByIdSaison.put(saison.getId(), episode);
+            }
+        }
+        model.addObject("episode", mapEpisodeByIdSaison);
+        
+        return model;
     }
 }

@@ -4,6 +4,7 @@
     Author     : Inspiron
 --%>
 
+<%@page import="com.shouwy.series.bdd.model.Series"%>
 <%@page import="com.shouwy.series.web.util.Util"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.shouwy.series.bdd.model.EtatPersonnel"%>
@@ -34,21 +35,33 @@ $(function() {
                 <%@include file="../left.jsp" %>
                 <div id="bloc">
                     <% Episode e = (Episode) request.getAttribute("episode");%>
+                    <% Series s = (Series) request.getAttribute("serie");%>
                     <% HashMap<Integer, EtatPersonnel> listEtatPerso = (HashMap<Integer, EtatPersonnel>) request.getAttribute("mapEtatPerso"); %>
                     <% ArrayList<Saison> listSaison = (ArrayList<Saison>) request.getAttribute("saison"); %> 
                     <% String msg = (String) request.getAttribute("msg"); %>
                     
                     <% if (msg != null){ %>
-                    <p class="up"><%=msg%></p>
+                    <p class="up"><%=msg%>
+                        <button id="backseries" class="ui-button ui-state-default ui-corner-all ui-widget">
+                            <a href="<%=request.getContextPath() %>/admin/series/modif/<%=s.getId() %>">Retour à La Serie</a>
+                        </button>
+                        </p>
                     <% } %>
-                    <form method="POST" action="<%=request.getContextPath() %>/admin/episode/valide/<%=e.getId()%>">
+                    <form method="POST" action="<%=request.getContextPath() %>/admin/episodes/valide/<%=e.getId()%>">
                         <table>
                             <tr>
                                 <td align="left"><input class="ui-button ui-state-default ui-corner-all ui-widget" type="submit" value="Modifier"/></td>
                                 <td></td>
+                                <td></td>
                             </tr>
                             <tr>
-                                <td style="vertical-align:top;text-align: left;"><label for="saison">Saison : </label></td>
+                                <td style="vertical-align:top;text-align: left;">Serie</td>
+                                <td style="vertical-align:top;text-align: left;"> : </td>
+                                <td style="vertical-align:top;text-align: left;"><%=s.getNom()%></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top;text-align: left;">Saison</td>
+                                <td style="vertical-align:top;text-align: left;"> : </td>
                                 <td style="vertical-align:top;text-align: left;">
                                     <select id="saison" name="saison">
                                         <% for(Saison saison : listSaison) { %>
@@ -58,10 +71,19 @@ $(function() {
                                     </select>
                                 </td>
                             </tr>
-                            <tr><td style="vertical-align:top;text-align: left;"><label for="titre">Titre : </label></td><td style="vertical-align:top;text-align: left;"><input type="text" id="titre" name="titre" value="<%=e.getTitre() %>"/></td></tr>
-                            <tr><td style="vertical-align:top;text-align: left;"><label for="date">Date de Sortie : </label></td><td style="vertical-align:top;text-align: left;"><input type="text" id="date" name="date" value="<%=Util.convertCalToString(e.getDateSortie()) %>"/></td></tr>
                             <tr>
-                                <td style="vertical-align:top;text-align: left;"><label for="etatperso">Etat Personnel :</label></td>
+                                <td style="vertical-align:top;text-align: left;">Titre</td>
+                                <td style="vertical-align:top;text-align: left;"> : </td>
+                                <td style="vertical-align:top;text-align: left;"><input type="text" id="titre" name="titre" value="<%=e.getTitre() %>"/></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top;text-align: left;">Date de Sortie</td>
+                                <td style="vertical-align:top;text-align: left;"> : </td>
+                                <td style="vertical-align:top;text-align: left;"><input type="text" id="date" name="date" value="<%=Util.convertCalToString(e.getDateSortie()) %>"/></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top;text-align: left;">Etat Personnel</td>
+                                <td style="vertical-align:top;text-align: left;"> : </td>
                                 <td style="vertical-align:top;text-align: left;">
                                      <select id="etatperso" name="etatperso">
                                     <% for(Integer i : listEtatPerso.keySet()){ %>
@@ -72,7 +94,8 @@ $(function() {
                                 </td>
                             </tr>
                             <tr>
-                                <td style="vertical-align:top;text-align: left;"><label for="synopsis">Synopsis :</label></td>
+                                <td style="vertical-align:top;text-align: left;">Synopsis</td>
+                                <td style="vertical-align:top;text-align: left;"> : </td>
                                 <td style="vertical-align:top;text-align: left;"><textarea rows="5" cols="100" name="synopsis"><%= e.getSynopsis() %></textarea></td>
                             </tr>
                         </table>                        

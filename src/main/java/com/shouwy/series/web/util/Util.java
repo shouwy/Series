@@ -72,7 +72,17 @@ public class Util {
     }
 
     public static String convertCalToString(Calendar gc){
-        return gc.get(Calendar.DATE)+"/"+gc.get(Calendar.MONTH)+"/"+gc.get(Calendar.YEAR);
+        String day = ""+gc.get(Calendar.DATE);
+        String month = ""+(gc.get(Calendar.MONTH)+1);
+        String year = ""+gc.get(Calendar.YEAR);
+        
+        if (day.length() == 1){
+            day = "0"+day;
+        }
+        if (month.length() == 1){
+            month = "0"+month;
+        }
+        return day+"/"+month+"/"+year;
     }
     
     public static Calendar getStringInDate(String dateString) {
@@ -81,6 +91,6 @@ public class Util {
     }
     
     public static String getDateInString(Calendar date){
-        return "";
+        return convertCalToString(date);
     }
 }

@@ -28,6 +28,7 @@ import com.shouwy.series.bdd.model.Series;
 import com.shouwy.series.web.util.Util;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,7 +57,40 @@ public class AdminEpisodeController {
     @Autowired
     EtatPersonnelDao etatPersoDao;
     
-    @RequestMapping(value="/admin/episode/add/{id}", method = RequestMethod.POST)
+    @RequestMapping(value="/admin/episodes/list")
+    public ModelAndView list(){
+        ModelAndView model = new ModelAndView("admin/episode/list");
+        
+        model.addObject("listType", Util.initModelHeader(typeDao));
+        ArrayList<Episode> listEpisode = (ArrayList<Episode>) episodeDao.getAll();
+        ArrayList<Series> listSeries = (ArrayList<Series>) seriesDao.getAll();
+        ArrayList<Saison> listSaison = (ArrayList<Saison>) saisonDao.getAll();
+        HashMap<Episode, HashMap<Saison, Series>> mapEpisode = new HashMap<Episode, HashMap<Saison, Series>>();
+        
+        for (Episode e : listEpisode){
+            Integer idSaison = e.getIdSaison();
+            for (Saison sa : listSaison){
+                if (sa.getId().equals(idSaison)){
+                    if (!mapEpisode.containsKey(e)){
+                        HashMap<Saison, Series> mapSaison = new HashMap<Saison, Series>();
+                        mapEpisode.put(e, mapSaison);
+                    }
+                    for (Series se : listSeries){
+                        if (se.getId().equals(sa.getIdSerie())){
+                            mapEpisode.get(e).put(sa, se);
+                        }
+                    }
+                }
+            }
+        }
+        
+        model.addObject("listEpisode", mapEpisode);
+        model.addObject("etat", etatPersoDao.getAll());
+        
+        return model;
+    }
+    
+    @RequestMapping(value="/admin/episodes/add/{id}", method = RequestMethod.POST)
     public ModelAndView addEpisode(@PathVariable Integer id, HttpServletRequest request){
         
         Episode e = new Episode();
@@ -80,7 +114,7 @@ public class AdminEpisodeController {
         return serieController.modif(id);
     }
     
-    @RequestMapping(value="/admin/episode/modif/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/admin/episodes/modif/{id}", method = RequestMethod.GET)
     public ModelAndView modif(@PathVariable Integer id){
         ModelAndView model = new ModelAndView("admin/episode/modif");
         
@@ -88,18 +122,19 @@ public class AdminEpisodeController {
         model.addObject("mapEtatPerso", Util.modelMapEtatPerso(etatPersoDao));
   
         Episode e = episodeDao.getById(id);
-        model.addObject("episode", e);
-        
         Saison saison = saisonDao.getById(e.getIdSaison());
         Series s = seriesDao.getById(saison.getIdSerie());
-        
+       
         ArrayList<Saison> listSaison = (ArrayList<Saison>) saisonDao.getBySeries(s);
+        
+        model.addObject("episode", e);
+        model.addObject("serie", s);
         model.addObject("saison", listSaison);
         
         return model;
     }
     
-    @RequestMapping(value="admin/episode/valide/{id}", method = RequestMethod.POST)
+    @RequestMapping(value="admin/episodes/valide/{id}", method = RequestMethod.POST)
     public ModelAndView valideModif(@PathVariable Integer id, HttpServletRequest request){
         
         Episode e = episodeDao.getById(id);
@@ -117,13 +152,17 @@ public class AdminEpisodeController {
         return this.modif(id);
     }
     
-    @RequestMapping(value="admin/episode/delete/{id}", method = RequestMethod.POST)
-    public ModelAndView delete(@PathVariable Integer id){
+    @RequestMapping(value="admin/episode/delete/{id}/{list}", method = RequestMethod.POST)
+    public ModelAndView delete(@PathVariable Integer id, @PathVariable String list){
         
         Episode episode = episodeDao.getById(id);
         Saison saison = saisonDao.getById(episode.getIdSaison());
         
         episodeDao.delete(episode);
+        
+        if (list.equals("ep")){
+            return this.list();
+        }
         
         AdminSerieController serieController = new AdminSerieController();
         serieController.typeDao = typeDao;

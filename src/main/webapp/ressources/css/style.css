@@ -210,3 +210,7 @@ p .up{
     text-align:-moz-center;
     text-align:-webkit-center;
 }
+
+.ui-dialog-title{
+    color: #ffffff;
+}
