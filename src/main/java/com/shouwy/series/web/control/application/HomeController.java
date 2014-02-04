@@ -68,7 +68,10 @@ public class HomeController {
 
     private Series getRandSeriesByType(Type t) {
         ArrayList<Series> l = (ArrayList<Series>) seriesDao.getByType(t.getId());
-        Series res = l.get((int) (Math.random() * (l.size())));      
+        Series res = null;
+        if (!l.isEmpty()){
+            res = l.get((int) (Math.random() * (l.size())));
+        }
         return res;
     }
 }

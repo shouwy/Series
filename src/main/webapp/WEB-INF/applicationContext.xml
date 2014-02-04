@@ -25,8 +25,6 @@
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
                 <prop key="hibernate.show_sql" >true</prop>
-                <!--Uncomment on first execution to create the tables automatically. It will drop-create each time, so only the first time--> 
-                <!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->  
             </props>
         </property>
     </bean>

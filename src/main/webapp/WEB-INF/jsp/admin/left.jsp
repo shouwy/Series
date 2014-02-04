@@ -5,7 +5,7 @@
 --%>
 <script type="text/javascript">
     $(function(){
-        jQuery("#accordion-left").menu({});
+        jQuery("#accordion-left").menu();
     });
 </script>
 <style>

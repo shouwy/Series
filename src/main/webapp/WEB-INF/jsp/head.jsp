@@ -17,3 +17,4 @@
 <script type="text/javascript" src="<c:url value="/ressources/js/jquery.jqplot.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/ressources/js/jqplot.plugins/jqplot.pieRenderer.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/ressources/js/jqplot.plugins/jqplot.donutRenderer.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/ressources/js/jquery.jeditable.js" />"></script>

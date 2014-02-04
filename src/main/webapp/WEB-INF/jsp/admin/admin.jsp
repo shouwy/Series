@@ -72,7 +72,7 @@ $(document).ready(function(){
         bInfo : false,
         bJQueryUI : true,
     });
-
+    <% if (!mapStat.isEmpty()){ %>
     <% String s1 = "";%>
     <% String s2 = "";%>
     <% String s3 = "";%>
@@ -165,6 +165,7 @@ $(document).ready(function(){
             location: 's'
         }
     }); 
+    <% } %>
 });
 </script>
     </body>
