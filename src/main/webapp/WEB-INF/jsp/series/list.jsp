@@ -33,7 +33,7 @@ $(function() {
         <div id="conteneur">
         <%@include file="../header.jsp"%>
         <div id="content">
-        <h1>Tableau de Series</h1>
+        <h1>Tableau des <%=type.getNom() %></h1>
         <table id="list">
             <thead>
                 <tr>

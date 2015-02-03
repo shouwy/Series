@@ -38,7 +38,7 @@ function drawCallBack(oTable){
         "height": "14px",
         "tooltip": "Edit…",
         "onblur": "submit"
-     })
+     });
 };
 jQuery(document).ready(function() { 
     var typeTable = jQuery("#listType").dataTable({

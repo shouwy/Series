@@ -30,7 +30,7 @@ public class Saison  {
     @GeneratedValue
     Integer id;
     private String nom;
-    private int anneeProduction;
+    private String anneeProduction;
     private int idSerie;
 
     public Integer getId() {
@@ -49,11 +49,11 @@ public class Saison  {
         this.nom = nom;
     }
 
-    public int getAnneeProduction() {
+    public String getAnneeProduction() {
         return anneeProduction;
     }
 
-    public void setAnneeProduction(int anneeProduction) {
+    public void setAnneeProduction(String anneeProduction) {
         this.anneeProduction = anneeProduction;
     }
 

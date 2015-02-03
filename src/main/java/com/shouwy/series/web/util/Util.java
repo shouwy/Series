@@ -21,6 +21,7 @@ import com.shouwy.series.bdd.dao.face.EtatPersonnelDao;
 import com.shouwy.series.bdd.dao.face.TypeDao;
 import com.shouwy.series.bdd.model.Etat;
 import com.shouwy.series.bdd.model.EtatPersonnel;
+import com.shouwy.series.bdd.model.Series;
 import com.shouwy.series.bdd.model.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -92,5 +93,18 @@ public class Util {
     
     public static String getDateInString(Calendar date){
         return convertCalToString(date);
+    }
+    
+    public static HashMap<Integer, ArrayList<Series>> mapSeriesByIdType(ArrayList<Series> listSeries){
+        HashMap<Integer, ArrayList<Series>> mapSeries = new HashMap<Integer, ArrayList<Series>>();
+        for (Series s : listSeries){
+            if (!mapSeries.containsKey(s.getIdType())){
+                mapSeries.put(s.getIdType(), new ArrayList<Series>());
+            }
+            mapSeries.get(s.getIdType()).add(s);
+        }
+        
+        
+        return mapSeries;
     }
 }

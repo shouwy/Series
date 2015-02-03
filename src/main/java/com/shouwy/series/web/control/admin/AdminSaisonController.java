@@ -28,12 +28,12 @@ import com.shouwy.series.bdd.model.Series;
 import com.shouwy.series.web.util.Util;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -77,14 +77,17 @@ public class AdminSaisonController {
         return model;
     }
     
-    @RequestMapping(value="/admin/saisons/add/{id}", method = RequestMethod.POST)
-    public ModelAndView addSaison(@PathVariable Integer id, HttpServletRequest request){
+    @RequestMapping(value="/admin/saisons/add", method = RequestMethod.POST)
+    public ModelAndView addSaison(@RequestParam(value="idSeries", required=true) Integer id, 
+                                  @RequestParam(value="start", required=true) String start,
+                                  @RequestParam(value="end", required=true) String end,
+                                  @RequestParam(value="nom", required=true) String nom){
         
         Saison s = new Saison();
         
         s.setIdSerie(id);
-        s.setAnneeProduction(Integer.parseInt(request.getParameter("annee")));
-        s.setNom(request.getParameter("nom"));
+        s.setAnneeProduction(start+"-"+end);
+        s.setNom(nom);
         
         saisonDao.save(s);
         AdminSerieController serieController = new AdminSerieController();
@@ -97,7 +100,7 @@ public class AdminSaisonController {
         return serieController.modif(id);
     }
     
-    @RequestMapping(value="admin/saisons/modif/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/admin/saisons/modif/{id}", method = RequestMethod.GET)
     public ModelAndView modif(@PathVariable Integer id){
         ModelAndView model = new ModelAndView("admin/saison/modif");
         
@@ -110,12 +113,15 @@ public class AdminSaisonController {
         return model;
     }
     
-    @RequestMapping(value="admin/saisons/valide/{id}", method = RequestMethod.POST)
-    public ModelAndView valideModif(@PathVariable Integer id, HttpServletRequest request){
+    @RequestMapping(value="/admin/saisons/valide", method = RequestMethod.POST)
+    public ModelAndView valideModif(@RequestParam(value="id", required=true) Integer id, 
+                                    @RequestParam(value="start", required=true) String start,
+                                    @RequestParam(value="end", required=true) String end,
+                                    @RequestParam(value="nom", required=true) String nom){
         
         Saison s = saisonDao.getById(id);
-        s.setAnneeProduction(Integer.parseInt(request.getParameter("annee")));
-        s.setNom(request.getParameter("nom"));
+        s.setAnneeProduction(start+"-"+end);
+        s.setNom(nom);
         saisonDao.update(s);
         
         AdminSerieController serieController = new AdminSerieController();
@@ -128,7 +134,7 @@ public class AdminSaisonController {
         return serieController.modif(s.getIdSerie());
     }
     
-    @RequestMapping(value="admin/saisons/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/admin/saisons/delete/{id}", method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable Integer id){
         
         Saison s = saisonDao.getById(id);

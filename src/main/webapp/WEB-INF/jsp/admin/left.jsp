@@ -10,8 +10,9 @@
 </script>
 <style>
 .ui-menu .ui-menu-item{
-	position : relative;
-	z-index : 1000;
+    width: 150px;
+    position : relative;
+    z-index : 1000;
 }
 </style>
 <div id="bloc_left">
@@ -21,7 +22,7 @@
                 <li><a href="<%=request.getContextPath() %>/admin/series/list">Serie</a></li>
                 <li><a href="<%=request.getContextPath() %>/admin/saisons/list">Saison</a></li>
                 <li><a href="<%=request.getContextPath() %>/admin/episodes/list">Episode</a></li>
-                <li><a href="<%=request.getContextPath() %>/admin/params/list">Type, Etat</a></li>
+                <li><a href="<%=request.getContextPath() %>/admin/params/list">Params</a></li>
             </ul>    
             <li><a href="<%=request.getContextPath() %>/admin/admin">Statistique</a></li>
         </ul>

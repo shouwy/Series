@@ -53,9 +53,14 @@ $(function() {
                 <div id="dialog-form" title="Création d'une Serie">
                     <form method="POST" id="form-series" action="<%=request.getContextPath() %>/admin/series/create">
                         <table>
-                            <tr><td style="vertical-align:top;text-align: left;"><label for="nom">Nom : </label></td><td style="vertical-align:top;text-align: left;"><input type="text" id="nom" name="nom"/></td></tr>
-                            <tr><td style="vertical-align: top;text-align: left;"><label for="synopsis">Synopsis : </label></td><td style="vertical-align:top;text-align: left;"><textarea id="synopsis" rows="5" cols="100" name="synopsis">Résumé de la Série</textarea></td></tr>
-                            <tr><td style="vertical-align:top;text-align: left;"><label for="type">Type : </label></td>
+                            <tr>
+                                <td style="vertical-align:top;text-align: left;">Nom</td>
+                                <td style="vertical-align:top;text-align: left;"> : </td>
+                                <td style="vertical-align:top;text-align: left;"><input type="text" id="nom" name="nom"/></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top;text-align: left;">Type</td>
+                                <td style="vertical-align:top;text-align: left;"> : </td>
                                 <td style="vertical-align:top;text-align: left;">
                                     <select id="type" name="type">
                                 <% for(Type t : type){ %>
@@ -64,7 +69,37 @@ $(function() {
                                     </select>
                                 </td>
                             </tr>
-                        <tr><td></td><td align="right"><input class="ui-button ui-state-default ui-corner-all ui-widget" type="submit" value="Créer"/></td></tr>
+                            <tr>
+                                <td style="vertical-align:top;text-align: left;">Etat</td>
+                                <td style="vertical-align:top;text-align: left;"> : </td>
+                                <td style="vertical-align:top;text-align: left;">
+                                    <select id="etat" name="etat">
+                                <% for(Etat t : etat){ %>
+                                        <option value="<%=t.getId() %>"><%=t.getNom() %></option>
+                                <% } %>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top;text-align: left;">Etat Personnel</td>
+                                <td style="vertical-align:top;text-align: left;"> : </td>
+                                <td style="vertical-align:top;text-align: left;">
+                                    <select id="etatperso" name="etatPerso">
+                                <% for(EtatPersonnel t : etatPerso){ %>
+                                        <option value="<%=t.getId() %>"><%=t.getNom() %></option>
+                                <% } %>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr><td style="vertical-align:top;text-align: left;">Image</td>
+                                <td style="vertical-align:top;text-align: left;"> : </td>
+                                <td style="vertical-align:top;text-align: left;"><input type="file" name="image"/></td>
+                            </tr>
+                            <tr><td style="vertical-align:top;text-align: left;">Synopsis</td>
+                                <td style="vertical-align:top;text-align: left;"> : </td>
+                                <td style="vertical-align:top;text-align: left;"><textarea id="synopsis" rows="5" cols="100" name="synopsis">Résumé de la Série</textarea></td>
+                            </tr>
+                            <tr><td></td><td></td><td align="right"><input class="ui-button ui-state-default ui-corner-all ui-widget" type="submit" value="Créer"/></td></tr>
                         </table>
                     </form>
                 </div>

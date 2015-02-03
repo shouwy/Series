@@ -24,7 +24,6 @@
         <% HashMap<Integer, Etat> listEtat = (HashMap<Integer, Etat>) request.getAttribute("mapEtat"); %>
         <% HashMap<Integer, EtatPersonnel> listEtatPerso = (HashMap<Integer, EtatPersonnel>) request.getAttribute("mapEtatPerso"); %>
         <% HashMap<Type, Series> mapSeries = (HashMap<Type, Series>) request.getAttribute("mapSeries"); %>
-        <% HashMap<Integer, Type> type = (HashMap<Integer, Type>) request.getAttribute("mapType");%>
         <%for (Type t : mapSeries.keySet()){ %>          
             <div id="bloc">
                 <a class="titre" href="<%=request.getContextPath()%>/series/affiche/<%=mapSeries.get(t).getId()%>"><%=mapSeries.get(t).getNom()%></a>

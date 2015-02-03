@@ -125,16 +125,22 @@ $(function() {
                             </td>            
                         </tr>
                         <tr>
+                            <td style="vertical-align:top;text-align: left;">Image</td>
+                            <td style="vertical-align:top;text-align: left;"> : </td>
+                            <td style="vertical-align:top;text-align: left;"><input type="file" name="image"/></td>
+                        </tr>
+                        <tr>
                             <td style="vertical-align:top;text-align: left;">Synopsis</td>
                             <td style="vertical-align:top;text-align: left;"> : </td>
                             <td style="vertical-align:top;text-align: left;"><textarea rows="5" cols="100" name="synopsis"><%=s.getSynopsis() %></textarea></td>
-                        </tr>                   
+                        </tr>
                     </table>
                 </form>
                 <button id="addsaison">Ajouter Une Saison</button>
                 
                 <div id="saison-form" title="Création d'une Saison">
-                    <form method="POST" action="<%=request.getContextPath() %>/admin/add/saison/<%=s.getId() %>">
+                    <form method="POST" action="<%=request.getContextPath() %>/admin/saisons/add/">
+                        <input type="hidden" name="idSeries" value="<%=s.getId() %>"/>
                         <table>
                             <tr>
                                 <td style="vertical-align:top;text-align: left;">Nom</td>
@@ -144,7 +150,7 @@ $(function() {
                             <tr>
                                 <td style="vertical-align:top;text-align: left;">Année de Production</td>
                                 <td style="vertical-align:top;text-align: left;"> : </td>
-                                <td style="vertical-align:top;text-align: left;"><input type="text" id="annee" name="annee"/></td>
+                                <td style="vertical-align:top;text-align: left;"><input type="text" id="start" name="start"/>-<input type="text" id="end" name="end"/></td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -157,7 +163,7 @@ $(function() {
                 <% if (listSaison.size() > 0) { %>
                 <button id="addepisode">Ajouter Un Episode</button>
                 <div id="episode-form" title="Création d'un Episode">
-                    <form method="POST" action="<%=request.getContextPath() %>/admin/episode/add/<%=s.getId() %>">
+                    <form method="POST" action="<%=request.getContextPath() %>/admin/episodes/add/<%=s.getId() %>">
                         <table>
                             <tr>
                                 <td style="vertical-align:top;text-align: left;">Saison</td>

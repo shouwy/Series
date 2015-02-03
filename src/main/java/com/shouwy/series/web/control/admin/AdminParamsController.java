@@ -25,13 +25,15 @@ import com.shouwy.series.bdd.model.Type;
 import com.shouwy.series.web.util.Util;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -50,19 +52,20 @@ public class AdminParamsController {
     @RequestMapping(value="/admin/params/list")
     public ModelAndView list(){
         ModelAndView model = new ModelAndView("admin/params/list");
-        ArrayList<Type> listType = Util.initModelHeader(typeDao);
-        model.addObject("listType", listType);
+        List<EtatPersonnel> listEtatPerso = etatPersoDao.getAll();
+        model.addObject("listType", Util.initModelHeader(typeDao));
         model.addObject("etat", etatDao.getAll());
-        model.addObject("etatPerso", etatPersoDao.getAll());
+        model.addObject("etatPerso", listEtatPerso);
         
+        for (EtatPersonnel e : listEtatPerso){
+            System.err.println(e.getNom());
+        }
         return model;
     }
     
     @RequestMapping(value="/admin/params/add", method = RequestMethod.POST)
-    public ModelAndView add(HttpServletRequest request){
-        String table = request.getParameter("type");
-        String nom = request.getParameter("nom");
-        System.err.println(nom);
+    public ModelAndView add(@RequestParam(value="nom", required=true) String nom,
+                            @RequestParam(value="type", required=true) String table){
         
         if (table.equals("etat")){
             Etat e = new Etat();
@@ -102,10 +105,11 @@ public class AdminParamsController {
     }
     
     @RequestMapping(value="/admin/params/validate", method = RequestMethod.POST)
-    public void validate(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        String table = request.getParameter("id").split("_")[0];
-        Integer id = Integer.parseInt(request.getParameter("id").split("_")[1]);
-        String nom = request.getParameter("value");
+    public void validate(@RequestParam(value="value", required=true) String nom,
+                        @RequestParam(value="id", required=true) String idElement,
+                        HttpServletResponse response) throws IOException{
+        String table = idElement.split("_")[0];
+        Integer id = Integer.parseInt(idElement.split("_")[1]);
                
         if (table.equals("etat")){
             Etat e = etatDao.getById(id);
@@ -123,6 +127,6 @@ public class AdminParamsController {
             typeDao.save(e);
         }
         
-       response.getOutputStream().print(nom);
+       response.getOutputStream().write(nom.getBytes("UTF-8"));
     }
 }

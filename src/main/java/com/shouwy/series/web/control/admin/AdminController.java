@@ -23,8 +23,6 @@ import com.shouwy.series.bdd.dao.face.SaisonDao;
 import com.shouwy.series.bdd.dao.face.SeriesDao;
 import com.shouwy.series.bdd.dao.face.TypeDao;
 import com.shouwy.series.bdd.model.Episode;
-import com.shouwy.series.bdd.model.Etat;
-import com.shouwy.series.bdd.model.EtatPersonnel;
 import com.shouwy.series.bdd.model.Saison;
 import com.shouwy.series.bdd.model.Series;
 import com.shouwy.series.bdd.model.Type;
@@ -34,7 +32,6 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**

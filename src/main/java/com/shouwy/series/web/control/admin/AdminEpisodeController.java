@@ -35,6 +35,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -91,15 +92,19 @@ public class AdminEpisodeController {
     }
     
     @RequestMapping(value="/admin/episodes/add/{id}", method = RequestMethod.POST)
-    public ModelAndView addEpisode(@PathVariable Integer id, HttpServletRequest request){
+    public ModelAndView addEpisode(@PathVariable Integer id, 
+                                   @RequestParam(value="titre", required=true) String titre,
+                                   @RequestParam(value="saison", required=true) Integer idSaison,
+                                   @RequestParam(value="synopsis", required=false) String synopsis,
+                                   @RequestParam(value="etatperso", required=true) Integer idEtatPerso,
+                                   @RequestParam(value="date", required=true) String dateString){
         
         Episode e = new Episode();
         
-        e.setTitre(request.getParameter("titre"));
-        e.setIdSaison(Integer.parseInt(request.getParameter("saison")));
-        e.setSynopsis(request.getParameter("synopsis"));
-        e.setIdEtatPersonnel(Integer.parseInt(request.getParameter("etatperso")));
-        String dateString = request.getParameter("date");
+        e.setTitre(titre);
+        e.setIdSaison(idSaison);
+        e.setSynopsis(synopsis);
+        e.setIdEtatPersonnel(idEtatPerso);
         Calendar date = Util.getStringInDate(dateString);
         e.setDateSortie(date);
         
@@ -134,14 +139,20 @@ public class AdminEpisodeController {
         return model;
     }
     
-    @RequestMapping(value="admin/episodes/valide/{id}", method = RequestMethod.POST)
-    public ModelAndView valideModif(@PathVariable Integer id, HttpServletRequest request){
+    @RequestMapping(value="/admin/episodes/valide/{id}", method = RequestMethod.POST)
+    public ModelAndView valideModif(@PathVariable Integer id,
+                                    @RequestParam(value="titre", required=true) String titre,
+                                    @RequestParam(value="saison", required=true) Integer idSaison,
+                                    @RequestParam(value="etatperso", required=true) Integer idEtatPerso,
+                                    @RequestParam(value="date", required=true) String dateString,
+                                    @RequestParam(value="synopsis", required=true) String synopsis,
+                                    HttpServletRequest request){
         
         Episode e = episodeDao.getById(id);
-        e.setIdSaison(Integer.parseInt(request.getParameter("saison")));
-        e.setTitre(request.getParameter("titre"));
-        e.setIdEtatPersonnel(Integer.parseInt(request.getParameter("etatperso")));
-        String dateString = request.getParameter("date");
+        e.setIdSaison(idSaison);
+        e.setTitre(titre);
+        e.setIdEtatPersonnel(idEtatPerso);
+        e.setSynopsis(synopsis);
         Calendar date = Util.getStringInDate(dateString);
         e.setDateSortie(date);
         
@@ -152,7 +163,7 @@ public class AdminEpisodeController {
         return this.modif(id);
     }
     
-    @RequestMapping(value="admin/episode/delete/{id}/{list}", method = RequestMethod.POST)
+    @RequestMapping(value="/admin/episode/delete/{id}/{list}", method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable Integer id, @PathVariable String list){
         
         Episode episode = episodeDao.getById(id);

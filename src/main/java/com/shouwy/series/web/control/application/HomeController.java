@@ -48,30 +48,31 @@ public class HomeController {
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView home(){
-        ModelAndView model = new ModelAndView("index");    
-        model.addObject("listType", Util.initModelHeader(typeDao));
+        ModelAndView model = new ModelAndView("index");
+        ArrayList<Type> listType = Util.initModelHeader(typeDao);
+        model.addObject("listType", listType);
         model.addObject("mapEtat", Util.modelMapEtat(etatDao));
         model.addObject("mapEtatPerso", Util.modelMapEtatPerso(etatPersoDao));
-        model.addObject("mapType", Util.modelMapType(typeDao));
         
-        HashMap<Type, Series> listSeries = new HashMap<Type, Series>();       
-        for (Type t : (ArrayList<Type> ) typeDao.getAll()){
-            Series s = getRandSeriesByType(t);
-            if (s != null){
-                listSeries.put(t, s);
-            }
-        }   
-        model.addObject("mapSeries", listSeries);
+        ArrayList<Series> listSeries = (ArrayList<Series>) seriesDao.getAll();
+        HashMap<Type, Series> mapSeries = getRandSeries(listType, listSeries);
+        model.addObject("mapSeries", mapSeries);
         
         return model;
     }
 
-    private Series getRandSeriesByType(Type t) {
-        ArrayList<Series> l = (ArrayList<Series>) seriesDao.getByType(t.getId());
-        Series res = null;
-        if (!l.isEmpty()){
-            res = l.get((int) (Math.random() * (l.size())));
+    private HashMap<Type, Series> getRandSeries(ArrayList<Type> listType, ArrayList<Series> listSeries) {
+        HashMap<Type, Series> mapSeries = new HashMap<Type, Series>();
+        HashMap<Integer, ArrayList<Series>> mapSeriesByType = Util.mapSeriesByIdType(listSeries); 
+        for (Type t : listType){
+            ArrayList<Series> list = mapSeriesByType.get(t.getId());
+            Series s = null;
+            if (list != null && !list.isEmpty()){
+                s = list.get((int) (Math.random() * (list.size())));
+            }
+            mapSeries.put(t, s);
         }
-        return res;
+        
+        return mapSeries;
     }
 }
